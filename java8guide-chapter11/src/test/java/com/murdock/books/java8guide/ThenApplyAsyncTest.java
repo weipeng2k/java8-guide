@@ -179,19 +179,21 @@ public class ThenApplyAsyncTest {
         // invoke IO create make
         CompletableFuture<String> make = CompletableFutureUtils.make("io", 1000, "DONE");
 
-        // invoke sync
+        // invoke and return future
         CompletableFuture<Integer> integerCompletableFuture = make.thenApplyAsync((value) -> {
             // happen biz thread
             System.out.println("func thread " + Thread.currentThread());
             return value.length();
         }, delayedExecutor);
 
-        // return
-        CompletableFuture<String> completableFuture = integerCompletableFuture.thenApply((i) -> {
+
+        // add function, or callback filter onResponse
+        CompletableFuture<Void> completableFuture = integerCompletableFuture.thenAccept(v -> {
             System.out.println("next func thread " + Thread.currentThread());
-            return "number" + i;
+            System.out.println("got " + v);
         });
 
+        // call this while execute in current thread
         delayedExecutor.release();
         System.out.println(completableFuture.join());
     }
