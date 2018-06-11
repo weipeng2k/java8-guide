@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.murdock.books</groupId>
+	<artifactId>java8-guide</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<modules>
+		<module>java8guide-chapter1</module>
+        <module>java8guide-chapter2</module>
+		<module>java8guide-common</module>
+		<module>java8guide-chapter3</module>
+        <module>java8guide-chapter4</module>
+		<module>java8guide-chapter5</module>
+		<module>java8guide-chapter6</module>
+        <module>java8guide-chapter10</module>
+        <module>java8guide-chapter11</module>
+        <module>java8guide-chapter12</module>
+    </modules>
+	<packaging>pom</packaging>
+	<name>java8-guide</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+			</dependency>
+			<dependency>
+				<groupId>com.murdock.books</groupId>
+				<artifactId>java8guide-common</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+				<version>2.3.2</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
