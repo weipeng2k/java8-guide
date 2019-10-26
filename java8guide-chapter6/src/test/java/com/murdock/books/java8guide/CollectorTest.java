@@ -6,6 +6,7 @@ import com.murdock.books.java8guide.trade.Transaction;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -93,5 +94,12 @@ public class CollectorTest {
         String s = TradeDataUtils.transactions().stream().map(Transaction::toString).collect(
                 Collectors.joining("\n", "#", "#"));
         System.out.println(s);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void for_null() {
+        Arrays.asList("xx", null, "yy").stream()
+            .map(String::toUpperCase)
+            .forEach(System.out::println);
     }
 }

@@ -2,8 +2,15 @@ package com.murdock.books.java8guide;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author weipeng2k 2018年06月04日 下午14:36:26
@@ -38,5 +45,48 @@ public class AllOfTest {
             System.out.println(ex);
         }).join();
 
+        List<String> message = new ArrayList<>();
+        ExecutorService threadPool = Executors.newSingleThreadExecutor();
+        Set<Boolean> resultMap = message.stream()
+                .map(CompletableFuture::completedFuture)
+                .map(cf -> cf.thenApplyAsync(this::handleMessage, threadPool))
+                .map(CompletableFuture::join)
+                .collect(Collectors.toSet());
+
+        if (resultMap.size() == 1) {
+
+        }
+
+    }
+
+    @Test
+    public void add() {
+        List<String> message = new ArrayList<>();
+        message.add("1");
+        message.add("2");
+        message.add("3");
+        message.add("4");
+        message.add("5");
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+
+        long start = System.currentTimeMillis();
+        CompletableFuture[] completableFutures = message.stream()
+                .map(CompletableFuture::completedFuture)
+                .map(cf -> cf.thenApplyAsync(this::handleMessage, threadPool))
+                .toArray(CompletableFuture[]::new);
+        CompletableFuture.allOf(completableFutures)
+                .join();
+
+        System.out.println(System.currentTimeMillis() - start);
+    }
+
+    public boolean handleMessage(String message) {
+        int i = Integer.parseInt(message);
+        try {
+            TimeUnit.SECONDS.sleep(i);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -17,8 +17,8 @@ public class AppleTest {
 
     @Test
     public void test() {
-        List<Apple> apples = Arrays.asList(new Apple(160, Color.RED), new Apple(140, Color.GREEN),
-                new Apple(170, Color.GREEN));
+        List<Apple> apples = Arrays.asList(new Apple(160, Color.RED), new Apple(190, Color.GREEN), new Apple(140, Color.GREEN),
+                new Apple(170, Color.GREEN), new Apple(170, Color.RED));
 
         Map<Color, List<Apple>> collect = apples.stream().filter(Apple::isBig).collect(groupingBy(Apple::getColor));
         System.out.println(collect);
