@@ -2,6 +2,7 @@ package com.murdock.books.java8guide;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -17,6 +18,13 @@ public class LocalDateTimeTest {
 
         System.out.println("localDateTime.toLocalDate():" + localDateTime.toLocalDate());
         System.out.println("localDateTime.toLocalTime():" + localDateTime.toLocalTime());
+    }
+
+    @Test
+    public void test() {
+        LocalDate localDate = LocalDate.of(2019, Month.NOVEMBER, 1);
+
+        System.out.println(localDate.getDayOfYear());
     }
 
 
